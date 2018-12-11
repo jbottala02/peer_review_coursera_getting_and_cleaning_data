@@ -20,42 +20,42 @@ Dataset downloaded and extracted under the folder called UCI HAR Dataset
 ```
 
 ### 2.  Assign all data frames
-- `features <- features.txt` : `561 rows, 2 columns` <br/>
+- ***`features <- features.txt`*** : `561 rows, 2 columns' <br/>
 The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ.
 ```R
              features <- read.table("UCI HAR Dataset/features.txt", col.names = c("n","functions"))
 ```
-- `activities <- activity_labels.txt` : `6 rows, 2 columns` <br/><br/>
+- ***`activities <- activity_labels.txt`*** : `6 rows, 2 columns` <br/><br/>
 List of activities performed when the corresponding measurements were taken and its codes (labels)<br/>
 ```R
              activities <- read.table("UCI HAR Dataset/activity_labels.txt", col.names = c("code", "activity"))
 ```
-- `subject_test <- test/subject_test.txt` : `2947 rows, 1 column` <br/><br/>
+- ***`subject_test <- test/subject_test.txt`*** : `2947 rows, 1 column` <br/><br/>
 Contains test data of 9/30 volunteer test subjects being observed<br/>
 ```R
              subject_test <- read.table("UCI HAR Dataset/test/subject_test.txt", col.names = "subject")
 ```
-- `x_test <- test/X_test.txt` : `2947 rows, 561 columns` <br/><br/>
+- ***`x_test <- test/X_test.txt`*** : `2947 rows, 561 columns` <br/><br/>
 Contains recorded features test data<br/>
 ```R
               x_test <- read.table("UCI HAR Dataset/test/X_test.txt", col.names = features$functions)
 ```
-- `y_test <- test/y_test.txt` : `2947 rows, 1 columns` <br/><br/>
+- ***`y_test <- test/y_test.txt`*** : `2947 rows, 1 columns` <br/><br/>
 Contains test data of activities’code labels<br/>
 ```R
               y_test <- read.table("UCI HAR Dataset/test/y_test.txt", col.names = "code")
 ```
-- `subject_train <- test/subject_train.txt` : `7352 rows, 1 column` <br/><br/>
+- ***`subject_train <- test/subject_train.txt`*** : `7352 rows, 1 column` <br/><br/>
 Contains train data of 21/30 volunteer subjects being observed<br/>
 ```R
               subject_train <- read.table("UCI HAR Dataset/train/subject_train.txt", col.names = "subject")
 ```          
-- `x_train <- test/X_train.txt` : `7352 rows, 561 columns` <br/><br/>
+- ***`x_train <- test/X_train.txt`*** : `7352 rows, 561 columns` <br/><br/>
 Contains recorded features train data<br/>
 ```R
               x_train <- read.table("UCI HAR Dataset/train/X_train.txt", col.names = features$functions)
 ```        
-- `y_train <- test/y_train.txt` : `7352 rows, 1 columns` <br/><br/>
+- ***`y_train <- test/y_train.txt` : `7352 rows, 1 columns`*** <br/><br/>
 Contains train data of activities’code labels<br/>
 ```R
               y_train <- read.table("UCI HAR Dataset/train/y_train.txt", col.names = "code")
