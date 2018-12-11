@@ -5,6 +5,20 @@ The `run_analysis.R` script performs the data preparation and then followed by t
 ### 1.  Download the dataset
 Dataset downloaded and extracted under the folder called UCI HAR Dataset
 
+-Note: If trouble in downloading the zip file, replace http instead of https
+
+```R
+> if (!file.exists(filename)){
++   fileURL <- "http://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
++   download.file(fileURL, filename, method="curl")
++ }  
+```
+```
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 59.6M  100 59.6M    0     0   323k      0  0:03:08  0:03:08 --:--:--  318k 
+```
+
 ### 2.  Assign all data frames
 - `features <- features.txt` : `561 rows, 2 columns` <br/>
 The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ.
@@ -72,6 +86,9 @@ Contains train data of activities’code labels<br/>
 ```
 ### 5. Uses descriptive activity names to name the activities in the data set
 Entire numbers in `code` column of the `TidyData` replaced with corresponding activity taken from second column of the  activities variable
+```R
+TidyData$code <- activities[TidyData$code, 2]
+```
 
 ### 6. Appropriately labels the data set with descriptive variable names
 - `code` column in `TidyData` renamed into `activities`
@@ -82,6 +99,30 @@ Entire numbers in `code` column of the `TidyData` replaced with corresponding ac
 - All start with character `f` in column’s name replaced by `Frequency`
 - All start with character `t` in column’s name replaced by `Time`
 
+```R
+        names(TidyData)[2] = "activity"
+        names(TidyData)<-gsub("Acc", "Accelerometer", names(TidyData))
+        names(TidyData)<-gsub("Gyro", "Gyroscope", names(TidyData))
+        names(TidyData)<-gsub("BodyBody", "Body", names(TidyData))
+        names(TidyData)<-gsub("Mag", "Magnitude", names(TidyData))
+        names(TidyData)<-gsub("^t", "Time", names(TidyData))
+        names(TidyData)<-gsub("^f", "Frequency", names(TidyData))
+        names(TidyData)<-gsub("tBody", "TimeBody", names(TidyData))
+        names(TidyData)<-gsub("-mean()", "Mean", names(TidyData), ignore.case = TRUE)
+        names(TidyData)<-gsub("-std()", "STD", names(TidyData), ignore.case = TRUE)
+        names(TidyData)<-gsub("-freq()", "Frequency", names(TidyData), ignore.case = TRUE)
+        names(TidyData)<-gsub("angle", "Angle", names(TidyData))
+        names(TidyData)<-gsub("gravity", "Gravity", names(TidyData))
+```
+
 ### 7. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
 - `FinalData` (180 rows, 88 columns) is created by sumarizing `TidyData` taking the means of each variable for each activity and each subject, after groupped by subject and activity.
 - Export `FinalData` into `FinalData.txt` file.
+```R
+FinalData <- TidyData %>%
+  group_by(subject, activity) %>%
+  summarise_all(funs(mean))
+write.table(FinalData, "FinalData.txt", row.name=FALSE)
+
+str(FinalData)
+```
