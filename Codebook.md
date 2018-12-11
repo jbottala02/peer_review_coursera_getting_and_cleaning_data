@@ -5,7 +5,7 @@ The `run_analysis.R` script performs the data preparation and then followed by t
 ### 1.  Download the dataset
 Dataset downloaded and extracted under the folder called UCI HAR Dataset
 
--Note: If trouble in downloading the zip file, replace http instead of https
+- **Note**: If trouble in downloading the zip file, replace http instead of https
 
 ```R
 > if (!file.exists(filename)){
